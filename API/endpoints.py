@@ -9,6 +9,7 @@ from flask_restx import Resource, Api
 app = Flask(__name__)
 api = Api(app)
 
+
 @api.route('/hello-world')
 class sweEndpoint(Resource):
     """
@@ -22,6 +23,8 @@ class sweEndpoint(Resource):
         It just answers with "hello world."
         """
         return {'hello': 'world!'}
+
+
 @api.route('/hello')
 class HelloWorld(Resource):
     """
@@ -59,4 +62,4 @@ class Pets(Resource):
         """
         This method returns all pets.
         """
-        return db.fetch_pets()
+        return #db.fetch_pets()
