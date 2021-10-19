@@ -6,13 +6,11 @@ The endpoint called `endpoints` will return all available endpoints.
 from flask import Flask
 from flask_restx import Resource, Api
 
-#import db.db as db
-
 app = Flask(__name__)
 api = Api(app)
 
 @api.route('/hello-world')
-class sweEndpoint(Resource): 
+class sweEndpoint(Resource):
     """
     SWE HW
     The purpose of the HelloWorld class is to have a simple test to see if the
