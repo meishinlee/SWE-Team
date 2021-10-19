@@ -1,0 +1,12 @@
+language: python
+python:
+    - '3.8'
+
+install:
+    - pip install -r requirements-dev.txt
+
+env:
+    - PYTHONPATH=/home/travis/build/meishinlee/SWE-Team
+
+script:
+    - make tests
