@@ -62,4 +62,4 @@ class Pets(Resource):
         """
         This method returns all pets.
         """
-        return #db.fetch_pets()
+        return 
