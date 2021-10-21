@@ -14,7 +14,7 @@ script:
 # deploy to heroku on push to master
 deploy:
     - provider: heroku
-      api_key: $HEROKU_API_KEY
+      api_key: 901d1995-0d67-4a96-86ce-8fab4ab75adf
       app: swe-team
       on:
           branch: master
