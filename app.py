@@ -6,10 +6,12 @@ from flask_restx import Resource, Api
 
 import firebase_admin
 from firebase_admin import credentials
+from firebase_admin import firestore
 
 cred = credentials.Certificate("path/to/serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 
+db = firestore.client()
 
 #Configure MySQL
 #conn = pymysql.connect(host='localhost',
