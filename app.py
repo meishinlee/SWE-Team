@@ -3,6 +3,14 @@ from flask import Flask, render_template, request, session, url_for, redirect
 from flask_restx import Resource, Api
 import pymysql.cursors
 
+
+import firebase_admin
+from firebase_admin import credentials
+
+cred = credentials.Certificate("path/to/serviceAccountKey.json")
+firebase_admin.initialize_app(cred)
+
+
 #Configure MySQL
 conn = pymysql.connect(host='localhost',
                        user='root',
