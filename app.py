@@ -1,5 +1,6 @@
 #Import Flask Library
 from flask import Flask, render_template, request, session, url_for, redirect
+from flask_restx import Resource, Api
 import pymysql.cursors
 
 #Configure MySQL
