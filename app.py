@@ -12,6 +12,7 @@ cred = credentials.Certificate("serviceAccountKey")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
+user_accounts = db.collection(u'UsersAccounts')
 #db.collection('UsersAccounts').add({'Password': '123', 'Username': "bob"})
 
 
@@ -69,6 +70,12 @@ def user_login_auth():
     #get information from form
     username = request.form['email']
     password = request.form['password']
+    entry = user_accounts.where(u'Password', u'==', password).get()
+    for item in entry:
+        print(item.to_dict())
+        item = item.to_dict()
+        print(item["Username"])
+        print(item["Password"])
     '''
     cursor = conn.cursor()
     query = 'SELECT user_email, password FROM users WHERE user_email = %s AND password = md5(%s)'
