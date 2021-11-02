@@ -1,7 +1,7 @@
 #Import Flask Library
 from flask import Flask, render_template, request, session, url_for, redirect
 from flask_restx import Resource, Api
-import pymysql.cursors
+#import pymysql.cursors
 
 
 import firebase_admin
@@ -12,12 +12,12 @@ firebase_admin.initialize_app(cred)
 
 
 #Configure MySQL
-conn = pymysql.connect(host='localhost',
-                       user='root',
-                       password='',
-                       db='swe-team-test',
-                       charset='utf8mb4',
-                       cursorclass=pymysql.cursors.DictCursor)
+#conn = pymysql.connect(host='localhost',
+#                       user='root',
+#                       password='',
+#                       db='swe-team-test',
+#                       charset='utf8mb4',
+#                       cursorclass=pymysql.cursors.DictCursor)
 
 #Initialize the app from Flask
 app = Flask(__name__)
@@ -36,6 +36,7 @@ def user_registration_auth():
     user_password_1 = request.form['password']
     user_password_repeat = request.form['password-repeat']
     print(request.form)
+    '''
     if user_password_1 == user_password_repeat: 
         #cursor used to send queries 
         cursor = conn.cursor()
@@ -55,12 +56,15 @@ def user_registration_auth():
             conn.commit()
             cursor.close()
             return render_template('index.html')
+    '''
+    return render_template('index.html')
 
 @app.route('/user_login_auth', methods = ['GET', 'POST'])
 def user_login_auth(): 
     #get information from form
     username = request.form['email']
     password = request.form['password']
+    '''
     cursor = conn.cursor()
     query = 'SELECT user_email, password FROM users WHERE user_email = %s AND password = md5(%s)'
     cursor.execute(query, (username, password))
@@ -70,3 +74,5 @@ def user_login_auth():
         return render_template('index.html') #if it works it goes to the login form
     else: 
         return render_template('register.html') #if it doesnt work it goes to register 
+    '''
+    return render_template('index.html')
