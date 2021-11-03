@@ -1,4 +1,4 @@
-# flask-api
+# Gmail Unsubscribe Filter
 An example flask rest API server.
 
 To build production, type `make prod`.
