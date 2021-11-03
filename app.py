@@ -35,6 +35,10 @@ def user_login():
 def user_registration(): 
     return render_template('register.html')
 
+@app.route('/homepage')
+def home():
+    return render_template('home.html')
+    
 @app.route('/user_registration_auth', methods = ['GET', 'POST'])
 def user_registration_auth(): 
     user_email_1 = request.form['email']
