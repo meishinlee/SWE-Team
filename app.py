@@ -8,10 +8,13 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-cred = credentials.Certificate("path/to/serviceAccountKey.json")
+cred = credentials.Certificate("serviceAccountKey")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
+user_accounts = db.collection(u'UsersAccounts')
+#db.collection('UsersAccounts').add({'Password': '123', 'Username': "bob"})
+
 
 #Configure MySQL
 #conn = pymysql.connect(host='localhost',
@@ -37,6 +40,7 @@ def user_registration_auth():
     user_email_1 = request.form['email']
     user_password_1 = request.form['password']
     user_password_repeat = request.form['password-repeat']
+    db.collection('UsersAccounts').add({'Password': user_password_1, 'Username': user_email_1})
     print(request.form)
     '''
     if user_password_1 == user_password_repeat: 
@@ -66,7 +70,12 @@ def user_login_auth():
     #get information from form
     username = request.form['email']
     password = request.form['password']
-    session['username'] = username
+    entry = user_accounts.where(u'Password', u'==', password).get()
+    for item in entry:
+        print(item.to_dict())
+        item = item.to_dict()
+        print(item["Username"])
+        print(item["Password"])
     '''
     cursor = conn.cursor()
     query = 'SELECT user_email, password FROM users WHERE user_email = %s AND password = md5(%s)'
