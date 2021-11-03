@@ -66,6 +66,7 @@ def user_login_auth():
     #get information from form
     username = request.form['email']
     password = request.form['password']
+    session['username'] = username
     '''
     cursor = conn.cursor()
     query = 'SELECT user_email, password FROM users WHERE user_email = %s AND password = md5(%s)'
@@ -78,3 +79,16 @@ def user_login_auth():
         return render_template('register.html') #if it doesnt work it goes to register 
     '''
     return render_template('index.html')
+
+def isSessionLoggedIn(): 
+	if len(session) > 0: 
+		print(session)
+		return True 
+	return False
+    
+@app.route('/logout')
+def logout():
+	session.pop('username')
+	#session.pop('role')
+	print(session)
+	return redirect('/')
