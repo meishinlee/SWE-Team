@@ -16,6 +16,9 @@ user_accounts = db.collection(u'UsersAccounts')
 #db.collection('UsersAccounts').add({'Password': '123', 'Username': "bob"})
 '''
 
+username_password_dictionary = {}
+username_subscriptions_dictionary = {}
+
 #Configure MySQL
 conn = pymysql.connect(host='localhost',
                        user='root',
@@ -47,26 +50,33 @@ def user_registration_auth():
     #db.collection('UsersAccounts').add({'Password': user_password_1, 'Username': user_email_1})
     print(request.form)
     
-    if user_password_1 == user_password_repeat: 
-        #cursor used to send queries 
-        cursor = conn.cursor()
-        #check for no duplicate emails 
-        no_duplicate_emails = 'SELECT user_email FROM users WHERE user_email = %s'
-        cursor.execute(no_duplicate_emails, (user_email_1))
-        in_database = cursor.fetchone()
-        if(in_database): 
-            #user exists 
-            #print(in_database, user_email_1, "user_exists")
-            return render_template('register.html')
-        else: 
-            #new user, add into database 
-            insert_user = 'INSERT INTO users VALUES (%s, md5(%s))'
-            #print(user_email_1, user_password_1)
-            cursor.execute(insert_user, (user_email_1, user_password_1))
-            conn.commit()
-            cursor.close()
-            return render_template('index.html')
+    # if user_password_1 == user_password_repeat: 
+    #     #cursor used to send queries 
+    #     cursor = conn.cursor()
+    #     #check for no duplicate emails 
+    #     no_duplicate_emails = 'SELECT user_email FROM users WHERE user_email = %s'
+    #     cursor.execute(no_duplicate_emails, (user_email_1))
+    #     in_database = cursor.fetchone()
+    #     if(in_database): 
+    #         #user exists 
+    #         #print(in_database, user_email_1, "user_exists")
+    #         return render_template('register.html')
+    #     else: 
+    #         #new user, add into database 
+    #         insert_user = 'INSERT INTO users VALUES (%s, md5(%s))'
+    #         #print(user_email_1, user_password_1)
+    #         cursor.execute(insert_user, (user_email_1, user_password_1))
+    #         conn.commit()
+    #         cursor.close()
+    #         return render_template('index.html')
     
+    if user_password_1 == user_password_repeat:
+        if user_email_1 not in username_password_dictionary:
+            username_password_dictionary[user_email_1] = user_password_1
+            username_subscriptions_dictionary[user_email_1] = []
+            return render_template('index.html')
+        else:
+            return render_template('register.html')
     return render_template('index.html')
 
 @app.route('/user_login_auth', methods = ['GET', 'POST'])
@@ -82,15 +92,20 @@ def user_login_auth():
         print(item["Username"])
         print(item["Password"])
     '''
-    cursor = conn.cursor()
-    query = 'SELECT user_email, password FROM users WHERE user_email = %s AND password = md5(%s)'
-    cursor.execute(query, (username, password))
-    data = cursor.fetchone()
-    cursor.close()
-    if (data): 
-        return render_template('home.html') #if it works it goes to the login form
-    else: 
-        return render_template('register.html') #if it doesnt work it goes to register 
+    # cursor = conn.cursor()
+    # query = 'SELECT user_email, password FROM users WHERE user_email = %s AND password = md5(%s)'
+    # cursor.execute(query, (username, password))
+    # data = cursor.fetchone()
+    # cursor.close()
+    # if (data): 
+    #     return render_template('home.html') #if it works it goes to the login form
+    # else: 
+    #     return render_template('register.html') #if it doesnt work it goes to register 
+    if username in username_password_dictionary:
+        if username_password_dictionary[username] == password:
+            return render_template('home.html')
+        else:
+            return render_template('register.html')
     
     #return render_template('index.html')
 
@@ -102,6 +117,17 @@ def add_subscription():
     not store their login info or billing credentials. But it will automatically log 
     in the fact that they are now subscribed to some newsletter in our database 
     '''
+    new_subscription = request.form['subscription_name']
+    if "ac7378@nyu" in username_subscriptions_dictionary:
+        if username_subscriptions_dictionary["ac7378@nyu"] == []:
+            username_subscriptions_dictionary["ac7378@nyu"].append(new_subscription)
+        else:
+            for elem in username_subscriptions_dictionary["ac7378@nyu"]:
+                if elem == new_subscription:
+                    print("Subscription already exists")
+            else:
+                username_subscriptions_dictionary["ac7378@nyu"].append(new_subscription)
+    
 
 @app.route('/delete_subscription', methods = ['GET', 'POST'])
 def delete_subscription(): 
@@ -110,6 +136,17 @@ def delete_subscription():
     manually through their accounts. Use gmail API to check if the service is terminated. 
     If the service is not terminated, then terminate it for them 
     '''
+    sub_name_to_remove = request.form['subscription_name']
+    if "ac7378@nyu" in username_subscriptions_dictionary:
+        if username_subscriptions_dictionary["ac7378@nyu"] == []:
+            print("No subscriptions to delete")
+        else:
+            for elem in username_subscriptions_dictionary["ac7378@nyu"]:
+                if elem == sub_name_to_remove:
+                    username_subscriptions_dictionary["ac7378@nyu"].remove(sub_name_to_remove)
+            else:
+                print("No such subscription was made previously. Unable to remove an non-existent subscription.")
+            
 
 @app.route('/get_active_subscriptions', methods = ['GET'])
 def get_active_subscriptions(): 
