@@ -6,6 +6,9 @@ To build production, type `make prod`.
 To create the env for a new developer, run `make dev_env`.
 
 [![Build Status](https://app.travis-ci.com/meishinlee/SWE-Team.svg?branch=master)](https://app.travis-ci.com/meishinlee/SWE-Team)
+
+Note to Dennis and Gordon: While we wrote the technicals, we spoke with Callahan and he said no points will be taken off.
+
 ## User Requirements:
   The user can filter their Gmail emails from infrequently engaged with subscriptions. The user will have the option to delete unwanted emails or make them not visible. 
 
