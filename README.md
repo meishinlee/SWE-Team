@@ -9,8 +9,8 @@ To create the env for a new developer, run `make dev_env`.
 
 Note to Dennis and Gordon: While we wrote the technicals, we spoke with Callahan and he said no points will be taken off.
 
-## User Requirements:
-  The user can filter their Gmail emails from infrequently engaged with subscriptions. The user will have the option to delete unwanted emails or make them not visible. 
+## Project Overview:
+  The user can filter their Gmail emails from infrequently engaged subscriptions. The user will have the option to delete unwanted emails or make them not visible. 
 
 ## Design: 
 1. We will use the Gmail API to update the person's filters to unsubscribe or resubscribe to a service. 
@@ -20,7 +20,7 @@ Note to Dennis and Gordon: While we wrote the technicals, we spoke with Callahan
 5. If allowed, we can use OAuth 2.0 to allow users to log in through authorized accounts such as through Gmail/Facebook/etc. 
 6. If allowed, we will also integrate the Google Calendar API to help set reminders and tasks for the user. 
 
-## System Requirements: 
+## User Requirements: 
 1. CREATE: A user can register for an account by using the `/user_registration` endpoint. 
 2. A user can login to their accounts using the `/user_login_auth` endpoint. 
 3. UPDATE: A user can add a new subscription status through the `/add_subscription` endpoint 
