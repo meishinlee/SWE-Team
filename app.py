@@ -130,6 +130,7 @@ def get_subscription_statistics():
     Returns a list of summary statistics for the user (eg. trends and categorize by 
     subscription topic. )
     '''
+    
 def isSessionLoggedIn(): 
 	if len(session) > 0: 
 		print(session)
