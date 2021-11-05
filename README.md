@@ -17,8 +17,10 @@ Note to Dennis and Gordon: While we wrote the technicals, we spoke with Callahan
 2. We will need a Database Storage system, such as MongoDB/Firebase/Postgres SQL to help us store user activity. 
 3. We will use Flask to allow Python to act as a backend.
 4. We will use Jinja2 to act as a messenger for data transfer.  
-5. If allowed, we can use OAuth 2.0 to allow users to log in through authorized accounts such as through Gmail/Facebook/etc. 
-6. If allowed, we will also integrate the Google Calendar API to help set reminders and tasks for the user. 
+5. We will use pydoc for good documentation.
+6. We will use TravisCI to check code quality.
+7. If allowed, we can use OAuth 2.0 to allow users to log in through authorized accounts such as through Gmail/Facebook/etc. 
+8. If allowed, we will also integrate the Google Calendar API to help set reminders and tasks for the user. 
 
 ## User Requirements: 
 1. CREATE: A user can register for an account by using the `/user_registration` endpoint. 
