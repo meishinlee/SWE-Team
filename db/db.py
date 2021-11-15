@@ -7,7 +7,7 @@ import json
 import os
 
 if ('DEMO_HOME' not in os.environ):
-    os.environ["DEMO_HOME"] = "C:/Users/miche/Desktop/Fall2021/SWE-Team"
+    os.environ["DEMO_HOME"] = "/home/anubis/SWE-Team"
 
 DEMO_HOME = os.environ["DEMO_HOME"]
 TEST_MODE = os.environ.get("TEST_MODE", 0)
@@ -18,6 +18,7 @@ else:
     DB_DIR = f"{DEMO_HOME}/db"
 
 USERS_DB = f"{DB_DIR}/users.json"
+print(USERS_DB)
 
 OK = 0
 NOT_FOUND = 1
@@ -32,6 +33,7 @@ def get_users():
         with open(USERS_DB) as file:
             return json.loads(file.read())
     except FileNotFoundError:
+        print(USERS_DB)
         print("Users db not found.")
         return None
 
