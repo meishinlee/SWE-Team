@@ -1,7 +1,7 @@
 #Import Flask Library
 from flask import Flask, render_template, request, session, url_for, redirect
 #from flask_restx import Resource, Api
-import pymysql.cursors
+#import pymysql.cursors
 
 '''
 import firebase_admin
@@ -20,13 +20,14 @@ username_password_dictionary = {}
 username_subscriptions_dictionary = {}
 
 #Configure MySQL
+'''
 conn = pymysql.connect(host='localhost',
                        user='root',
                        password='',
                        db='swe-team-test',
                        charset='utf8mb4',
                        cursorclass=pymysql.cursors.DictCursor)
-
+'''
 #Initialize the app from Flask
 app = Flask(__name__)
 
