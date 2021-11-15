@@ -31,6 +31,7 @@ def get_users():
     """
     try:
         with open(USERS_DB) as file:
+            # print(file.read())
             return json.loads(file.read())
     except FileNotFoundError:
         print(USERS_DB)
