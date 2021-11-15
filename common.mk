@@ -6,7 +6,7 @@ PYDOC = python3 -m pydoc -w
 TESTFINDER = nose2
 
 export TEST_MODE = 1
-export DEMO_HOME = "C:\Users\miche\Desktop\Fall2021\SWE-Team"
+# export DEMO_HOME = C:\Users\miche\Desktop\Fall2021\SWE-Team
 
 FORCE:
 
