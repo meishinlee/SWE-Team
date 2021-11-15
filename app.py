@@ -32,18 +32,47 @@ app = Flask(__name__)
 
 @app.route('/')
 def user_login():
-	return render_template('index.html')
+    '''
+    Takes login information from the user, which consists of a username (email) and password. 
+    Returns True (goes to homepage) or False (go to login/register page)
+    '''
+    return render_template('index.html')
 
 @app.route('/user_registration')
 def user_registration(): 
+    '''
+    Takes user information such as Full Name, Email address, and password. 
+    Checks if user exists in the database. Else, add to database 
+    '''
+
+    #Endpoint stub outline: 
+    #if user_exists == True: 
+    #    return render_template('index.html') #currently we have the login page as index.html 
+    #else: 
+    #    username_password_dictionary[username] = password
     return render_template('register.html')
 
 @app.route('/homepage')
 def home():
-    return render_template('home.html')
+    '''
+    Takes a boolean (True/False) to signify if the user login is successful 
+    if user login successful: return the homepage of the user
+    else display login page 
+    '''
+    #if user_login_successful() == True: 
+    #    return render_template('home.html')
+    #else: 
+    #    return render_template('index.html') #return login page
+    #return render_template('home.html')
     
 @app.route('/user_registration_auth', methods = ['GET', 'POST'])
 def user_registration_auth(): 
+    '''
+    This goes hand in hand with user_registration(), we split this up into two different endpoints 
+    when we build it technically
+    Takes user information such as Full Name, Email address, and password. 
+    Checks if user exists in the database. Else, add to database 
+    '''
     user_email_1 = request.form['email']
     user_password_1 = request.form['password']
     user_password_repeat = request.form['password-repeat']
@@ -81,6 +110,12 @@ def user_registration_auth():
 
 @app.route('/user_login_auth', methods = ['GET', 'POST'])
 def user_login_auth(): 
+    '''
+    This goes hand in hand with the user_login() endpoint, but this was split into two 
+    parts technically when we tried implementing it. 
+    Takes login information from the user, which consists of a username (email) and password. 
+    Returns True (goes to homepage) or False (go to login/register page)
+    '''
     #get information from form
     username = request.form['email']
     password = request.form['password']
