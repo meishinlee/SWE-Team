@@ -15,6 +15,8 @@ tests: lint unit
 
 unit: FORCE
 	cd $(API_DIR); nosetests --with-coverage --cover-package=$(API_DIR)
+	cd $(DB_DIR); nosetests --with-coverage --cover-package=$(DB_DIR)
+
 
 lint: FORCE
 	$(LINTER) $(API_DIR)/*.py
