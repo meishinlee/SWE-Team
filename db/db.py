@@ -6,6 +6,9 @@ Gradually, we will fill in actual calls to our datastore.
 import json
 import os
 
+if ('DEMO_HOME' not in os.environ):
+    os.environ["DEMO_HOME"] = "C:/Users/miche/Desktop/Fall2021/SWE-Team"
+
 DEMO_HOME = os.environ["DEMO_HOME"]
 TEST_MODE = os.environ.get("TEST_MODE", 0)
 
