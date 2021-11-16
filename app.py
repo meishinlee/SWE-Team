@@ -37,7 +37,7 @@ def user_login():
     Takes login information from the user, which consists of a username (email) and password. 
     Returns True (goes to homepage) or False (go to login/register page)
     '''
-    return render_template('index.html')
+    return render_template('endpoints.html')
 
 @app.route('/user_registration')
 def user_registration(): 
