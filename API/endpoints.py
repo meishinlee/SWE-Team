@@ -54,22 +54,22 @@ class get_subscription_statistics(Resource):
         Returns active subscriptions for the user
         '''
         active_subs = db.get_active_subs()['username']
-        if active_subs is None: 
+        if active_subs is None:
             raise(wz.NotFound("User not found in database"))
-        else: 
+        else:
             return active_subs
-        #return {"Current Subsciptions": {"Best Buy": {"type": "newsletter"},
+        # return {"Current Subsciptions": {"Best Buy": {"type": "newsletter"},
         #                             "Target": {"Category": "Promotional"}}}
 
-    def get_inactive(self, username): 
+    def get_inactive(self, username):
         '''
         Returns deleted or inactive subscriptions for the user
         '''
         inactive_subs = db.get_inactive_subs()['username']
-        if inactive_subs is None: 
+        if inactive_subs is None:
             raise(wz.NotFound("User not found in database"))
-        else: 
-            return inactive_subs 
+        else:
+            return inactive_subs
 
 
 @api.route('/list_users')
@@ -112,7 +112,7 @@ class CreateUser(Resource):
             raise (wz.NotAcceptable("User name already exists."))
         return f"{username} added."
 
-        
+      
 @api.route('/pets')
 class Pets(Resource):
     """
