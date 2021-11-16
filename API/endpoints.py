@@ -42,14 +42,11 @@ class Endpoints(Resource):
         return {"Available endpoints": endpoints}
 
 
-@api.route('/get_subscription_statistics')
-class get_subscription_statistics(Resource):
-    '''
-    This class gets different types of statistics for users
-    '''
+@api.route('/get_active_subscriptions')
+class get_active_subscriptions(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    def get_active(self, username):
+    def get(self):
         '''
         Returns active subscriptions for the user
         '''
@@ -61,7 +58,10 @@ class get_subscription_statistics(Resource):
         # return {"Current Subsciptions": {"Best Buy": {"type": "newsletter"},
         #                             "Target": {"Category": "Promotional"}}}
 
-    def get_inactive(self, username):
+
+@api.route('/get_inactive_subscriptions')
+class get_inactive_subscriptions(Resource):
+    def get(self, username):
         '''
         Returns deleted or inactive subscriptions for the user
         '''
