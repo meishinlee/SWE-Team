@@ -112,7 +112,7 @@ class CreateUser(Resource):
             raise (wz.NotAcceptable("User name already exists."))
         return f"{username} added."
 
-      
+
 @api.route('/pets')
 class Pets(Resource):
     """

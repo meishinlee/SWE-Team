@@ -1,0 +1,8 @@
+{
+    "test1@nyu.edu": {"Stores":"Best Buy"
+    },
+    "test2@nyu.edu": {"Stores":"Duane Reade"
+    },
+    "test3@nyu.edu": {"Stores":["Whole Foods", "Store2"]
+    }
+}

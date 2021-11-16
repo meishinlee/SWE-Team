@@ -6,19 +6,20 @@ Gradually, we will fill in actual calls to our datastore.
 import json
 import os
 
-if ('DEMO_HOME' not in os.environ):
-    os.environ["DEMO_HOME"] = "/home/anubis/SWE-Team"
+if ('FILTER_HOME' not in os.environ):
+    os.environ["FILTER_HOME"] = "/home/anubis/SWE-Team"
 
-DEMO_HOME = os.environ["DEMO_HOME"]
+FILTER_HOME = os.environ["FILTER_HOME"]
 TEST_MODE = os.environ.get("TEST_MODE", 0)
 
 if TEST_MODE:
-    DB_DIR = f"{DEMO_HOME}/db/test_dbs"
+    DB_DIR = f"{FILTER_HOME}/db/test_dbs"
 else:
-    DB_DIR = f"{DEMO_HOME}/db"
+    DB_DIR = f"{FILTER_HOME}/db"
 
 USERS_DB = f"{DB_DIR}/users.json"
-SUBSCRIPTION_DB = f"{DB_DIR}/subscriptions.json"
+ACTIVE_SUBSCRIPTION_DB = f"{DB_DIR}/active_subscriptions.json"
+INACTIVE_SUBSCRIPTION_DB = f"{DB_DIR}/inactive_subscriptions.json"
 print(USERS_DB)
 
 OK = 0
@@ -37,6 +38,28 @@ def get_users():
     except FileNotFoundError:
         print(USERS_DB)
         print("Users db not found.")
+        return None
+
+
+def get_active_subs():
+    '''
+    Gets the active subscriptions of a user
+    '''
+    try:
+        with open(ACTIVE_SUBSCRIPTION_DB) as file:
+            return json.loads(file.read())
+    except FileNotFoundError:
+        return None
+
+
+def get_inactive_subs():
+    '''
+    Gets the inactive subscriptions of a user
+    '''
+    try:
+        with open(INACTIVE_SUBSCRIPTION_DB) as file:
+            return json.loads(file.read())
+    except FileNotFoundError:
         return None
 
 

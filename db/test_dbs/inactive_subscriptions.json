@@ -1,0 +1,8 @@
+{
+    "test1@nyu.edu": {"Stores":["Walmart", "Target"]
+    },
+    "test2@nyu.edu": {"Stores":"Rite Aid"
+    },
+    "test3@nyu.edu": {"Stores":"Trader Joe's"
+    }
+}
