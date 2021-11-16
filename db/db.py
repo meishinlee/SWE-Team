@@ -18,6 +18,7 @@ else:
     DB_DIR = f"{DEMO_HOME}/db"
 
 USERS_DB = f"{DB_DIR}/users.json"
+SUBSCRIPTION_DB = f"{DB_DIR}/subscriptions.json"
 print(USERS_DB)
 
 OK = 0
