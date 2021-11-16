@@ -9,7 +9,7 @@ env:
     - PYTHONPATH=/home/travis/build/AaronBinChen/SWE-Team
 
 script:
-    - make tests
+    - make all_tests
 
 # deploy to heroku on push to master
 deploy:
