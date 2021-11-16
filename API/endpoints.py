@@ -42,7 +42,7 @@ class Endpoints(Resource):
         return {"Available endpoints": endpoints}
 
 
-@app.route('/get_subscription_statistics')
+@api.route('/get_subscription_statistics')
 class get_subscription_statistics(Resource):
     '''
     This class gets different types of statistics for users
