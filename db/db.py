@@ -60,6 +60,7 @@ def get_inactive_subs(username):
     try:
         with open(INACTIVE_SUBSCRIPTION_DB) as file:
             filedata = json.loads(file.read())
+            print(filedata)
             return filedata
     except FileNotFoundError:
         return NOT_FOUND
