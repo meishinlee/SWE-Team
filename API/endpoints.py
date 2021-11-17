@@ -41,6 +41,7 @@ class Endpoints(Resource):
         endpoints = sorted(rule.rule for rule in api.app.url_map.iter_rules())
         return {"Available endpoints": endpoints}
 
+
 @api.route('/get_subscription_statistics/<username>')
 class get_subscription_statistics(Resource):
     @api.response(HTTPStatus.OK, 'Success')
@@ -56,13 +57,12 @@ class get_subscription_statistics(Resource):
             raise(wz.NotFound("User not found in database"))
         else:
             sub_list.append(active_subs)
-        
         if inactive_subs is None:
             raise(wz.NotFound("User not found in database"))
         else:
             sub_list.append(inactive_subs)
-        
         return sub_list
+
 
 @api.route('/get_active_subscriptions/<username>')
 class get_active_subscriptions(Resource):
@@ -72,7 +72,11 @@ class get_active_subscriptions(Resource):
         '''
         Returns active subscriptions for the user
         '''
+<<<<<<< HEAD
         active_subs = db.get_active_subs(username)["test2"]
+=======
+        active_subs = db.get_active_subs(username)  # ['username']
+>>>>>>> 55ddc593fc591e01f9916ef46a9447b3c464e4fa
         if active_subs is None:
             raise(wz.NotFound("User not found in database"))
         else:
@@ -88,7 +92,11 @@ class get_inactive_subscriptions(Resource):
         '''
         Returns deleted or inactive subscriptions for the user
         '''
+<<<<<<< HEAD
         inactive_subs = db.get_inactive_subs(username)["test2"]
+=======
+        inactive_subs = db.get_inactive_subs(username)  # ['username']
+>>>>>>> 55ddc593fc591e01f9916ef46a9447b3c464e4fa
         if inactive_subs is None:
             raise(wz.NotFound("User not found in database"))
         else:
