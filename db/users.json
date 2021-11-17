@@ -1,8 +1,8 @@
 {
-    "Mei": {"Email":"msl608@nyu.edu"
+    "test1": {"Email":"msl608@nyu.edu"
     },
-    "Aaron": {"Email":"aaron@nyu.edu"
+    "test2": {"Email":"aaron@nyu.edu"
     },
-    "Devin": {"Email":"devin@nyu.edu"
+    "test3": {"Email":"devin@nyu.edu"
     }
 }
