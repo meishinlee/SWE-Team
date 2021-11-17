@@ -41,12 +41,34 @@ class Endpoints(Resource):
         endpoints = sorted(rule.rule for rule in api.app.url_map.iter_rules())
         return {"Available endpoints": endpoints}
 
+@api.route('/get_subscription_statistics')
+class get_subscription_statistics(Resource):
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    def get(self, username):
+        '''
+        Return all subscription statistics for the users
+        '''
+        sub_list = []
+        active_subs = db.get_active_subs()['username']
+        inactive_subs = db.get_inactive_subs()['username']
+        if active_subs is None:
+            raise(wz.NotFound("User not found in database"))
+        else:
+            sub_list.append(active_subs)
+        
+        if inactive_subs is None:
+            raise(wz.NotFound("User not found in database"))
+        else:
+            sub_list.append(inactive_subs)
+        
+        return sub_list
 
 @api.route('/get_active_subscriptions')
 class get_active_subscriptions(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    def get(self):
+    def get(self, username):
         '''
         Returns active subscriptions for the user
         '''
@@ -113,13 +135,13 @@ class CreateUser(Resource):
         return f"{username} added."
 
 
-@api.route('/pets')
-class Pets(Resource):
-    """
-    This class supports fetching a list of all pets.
-    """
-    def get(self):
-        """
-        This method returns all pets.
-        """
-        return db.fetch_pets()
+# @api.route('/pets')
+# class Pets(Resource):
+#     """
+#     This class supports fetching a list of all pets.
+#     """
+#     def get(self):
+#         """
+#         This method returns all pets.
+#         """
+#         return db.fetch_pets()
