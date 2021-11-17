@@ -41,11 +41,11 @@ class Endpoints(Resource):
         endpoints = sorted(rule.rule for rule in api.app.url_map.iter_rules())
         return {"Available endpoints": endpoints}
 
-@api.route('/get_subscription_statistics')
+@api.route('/get_subscription_statistics/<username>')
 class get_subscription_statistics(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    def get(self, username):
+    def post(self, username):
         '''
         Return all subscription statistics for the users
         '''
@@ -64,7 +64,7 @@ class get_subscription_statistics(Resource):
         
         return sub_list
 
-@api.route('/get_active_subscriptions')
+@api.route('/get_active_subscriptions/<username>')
 class get_active_subscriptions(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
@@ -81,7 +81,7 @@ class get_active_subscriptions(Resource):
         #                             "Target": {"Category": "Promotional"}}}
 
 
-@api.route('/get_inactive_subscriptions')
+@api.route('/get_inactive_subscriptions/<username>')
 class get_inactive_subscriptions(Resource):
     def post(self, username):
         '''
