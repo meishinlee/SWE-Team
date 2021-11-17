@@ -41,24 +41,26 @@ def get_users():
         return None
 
 
-def get_active_subs():
+def get_active_subs(username):
     '''
     Gets the active subscriptions of a user
     '''
     try:
         with open(ACTIVE_SUBSCRIPTION_DB) as file:
-            return json.loads(file.read())
+            filedata = json.loads(file.read())
+            return filedata
     except FileNotFoundError:
         return None
 
 
-def get_inactive_subs():
+def get_inactive_subs(username):
     '''
     Gets the inactive subscriptions of a user
     '''
     try:
         with open(INACTIVE_SUBSCRIPTION_DB) as file:
-            return json.loads(file.read())
+            filedata = json.loads(file.read())
+            return filedata
     except FileNotFoundError:
         return None
 
