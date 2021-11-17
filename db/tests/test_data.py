@@ -22,16 +22,16 @@ class DBTestCase(TestCase):
         users = db.get_users()
         self.assertIsInstance(users, dict)
 
-    def test_active_subscription(self, username):
+    def test_active_subscription(self):
         """
         Can we fetch active subscriptions?
         """
-        active_subs = db.get_active_subs(username)
+        active_subs = db.get_active_subs("test1")
         self.assertIsInstance(active_subs, dict)
     
-    def test_inactive_subscription(self, username):
+    def test_inactive_subscription(self):
         """
         Can we fetch inactive subscriptions?
         """
-        inactive_subs = db.get_inactive_subs(username)
+        inactive_subs = db.get_inactive_subs("test1")
         self.assertIsInstance(inactive_subs, dict)
