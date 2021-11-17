@@ -68,7 +68,7 @@ class get_subscription_statistics(Resource):
 class get_active_subscriptions(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    def get(self, username):
+    def post(self, username):
         '''
         Returns active subscriptions for the user
         '''
@@ -83,7 +83,7 @@ class get_active_subscriptions(Resource):
 
 @api.route('/get_inactive_subscriptions')
 class get_inactive_subscriptions(Resource):
-    def get(self, username):
+    def post(self, username):
         '''
         Returns deleted or inactive subscriptions for the user
         '''
