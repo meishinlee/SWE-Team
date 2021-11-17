@@ -50,7 +50,7 @@ def get_active_subs(username):
             filedata = json.loads(file.read())
             return filedata
     except FileNotFoundError:
-        return None
+        return NOT_FOUND
 
 
 def get_inactive_subs(username):
@@ -62,7 +62,7 @@ def get_inactive_subs(username):
             filedata = json.loads(file.read())
             return filedata
     except FileNotFoundError:
-        return None
+        return NOT_FOUND
 
 
 def write_users(users):
