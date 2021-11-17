@@ -72,7 +72,7 @@ class get_active_subscriptions(Resource):
         '''
         Returns active subscriptions for the user
         '''
-        active_subs = db.get_active_subs()['username']
+        active_subs = db.get_active_subs()#['username']
         if active_subs is None:
             raise(wz.NotFound("User not found in database"))
         else:
@@ -88,7 +88,7 @@ class get_inactive_subscriptions(Resource):
         '''
         Returns deleted or inactive subscriptions for the user
         '''
-        inactive_subs = db.get_inactive_subs()['username']
+        inactive_subs = db.get_inactive_subs()#['username']
         if inactive_subs is None:
             raise(wz.NotFound("User not found in database"))
         else:
