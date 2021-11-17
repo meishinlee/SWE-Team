@@ -76,6 +76,7 @@ class get_active_subscriptions(Resource):
         if active_subs is None:
             raise(wz.NotFound("User not found in database"))
         else:
+            print(active_subs)
             return active_subs
         # return {"Current Subsciptions": {"Best Buy": {"type": "newsletter"},
         #                             "Target": {"Category": "Promotional"}}}

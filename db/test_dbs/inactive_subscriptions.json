@@ -1,8 +1,8 @@
 {
-    "test1@nyu.edu": {"Stores":["Walmart", "Target"]
+    "test1": {"Stores":["Walmart", "Target"]
     },
-    "test2@nyu.edu": {"Stores":"Rite Aid"
+    "test2": {"Stores":"Rite Aid"
     },
-    "test3@nyu.edu": {"Stores":"Trader Joe's"
+    "test3": {"Stores":"Trader Joe's"
     }
 }
