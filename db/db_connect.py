@@ -8,7 +8,8 @@ import bson.json_util as bsutil
 
 # all of these will eventually be put in the env:
 user_nm = "meishinlee"
-cloud_db = "cluster0.lh6bk.mongodb.net"
+cloud_db = "email-filter.6vns1.mongodb.net"
+# cloud_db = "cluster0.lh6bk.mongodb.net"
 # cloud_db = "serverlessinstance0.irvgp.mongodb.net"
 passwd = os.environ.get("MONGO_PASSWD", 'emailfilter')
 cloud_mdb = "mongodb+srv"
