@@ -74,7 +74,6 @@ class get_inactive_subscriptions(Resource):
         else:
             return inactive_subs
 
-
 @api.route('/list_users')
 class ListUsers(Resource):
     """
@@ -92,6 +91,37 @@ class ListUsers(Resource):
         else:
             return users
 
+@api.route('/add_subscription/<username, subscription_name>')
+class add_subscriptions(Resource):
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key')
+    def post (self, username, subscription_name):
+        '''
+        Adds the subscription to active subs for the user
+        '''
+        ret = db.add_subs(username, subscription_name)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound("Subscription db not found."))
+        elif ret == db.DUPLICATE:
+            raise (wz.NotAcceptable("Username already exists."))
+        return f"{username}, {subscription_name} added."
+
+@api.route('/delete_subscription/<username, subscription_name>')
+class delete_subscriptions(Resource):
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.NOT_ACCEPTABLE, 'A duplicate key')
+    def post (self, username, subscription_name):
+        '''
+        Adds the subscription to active subs for the user
+        '''
+        ret = db.delete_subs(username, subscription_name)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound("Subscription db not found."))
+        elif ret == db.DUPLICATE:
+            raise (wz.NotAcceptable("Username already exists."))
+        return f"{username}, {subscription_name} deleted."
 
 @api.route('/create_user/<username>')
 class CreateUser(Resource):
