@@ -74,6 +74,7 @@ def add_subs(username, subscription_name):
         return NOT_FOUND
     elif username in subs:
         subs[username].append(subscription_name)
+        return subs
 
 def delete_subs(username, subscription_name):
     '''
@@ -84,6 +85,7 @@ def delete_subs(username, subscription_name):
         return NOT_FOUND
     elif username in subs:
         subs[username].remove(subscription_name)
+        return subs
 
 def write_users(users):
     pass
