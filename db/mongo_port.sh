@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export passwd=$MONGO_PASSWD
+export passwd="emailfilter"
 export db="emailFilterDB"
 export collect="subscriptions"
 export key="subscription_name_date"
