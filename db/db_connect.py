@@ -7,12 +7,13 @@ import pymongo as pm
 import bson.json_util as bsutil
 
 # all of these will eventually be put in the env:
-user_nm = "gcallah"
-cloud_db = "serverlessinstance0.irvgp.mongodb.net"
-passwd = os.environ.get("MONGO_PASSWD", '')
+user_nm = "meishinlee"
+cloud_db = "cluster0.lh6bk.mongodb.net"
+# cloud_db = "serverlessinstance0.irvgp.mongodb.net"
+passwd = os.environ.get("MONGO_PASSWD", 'emailfilter')
 cloud_mdb = "mongodb+srv"
 db_params = "retryWrites=true&w=majority"
-db_nm = "chatDB"
+db_nm = "emailfilterDB"
 
 client = None
 
