@@ -91,7 +91,7 @@ class ListUsers(Resource):
         else:
             return users
 
-@api.route('/add_subscription/<username, subscription_name>')
+@api.route('/add_subscription/<username>/<subscription_name>')
 class add_subscriptions(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
@@ -107,7 +107,7 @@ class add_subscriptions(Resource):
             raise (wz.NotAcceptable("Username already exists."))
         return f"{username}, {subscription_name} added."
 
-@api.route('/delete_subscription/<username, subscription_name>')
+@api.route('/delete_subscription/<username>/<subscription_name>')
 class delete_subscriptions(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')

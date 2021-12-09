@@ -1,8 +1,5 @@
 {
-    "test1": {"Stores":"Best Buy"
-    },
-    "test2": {"Stores":"Duane Reade"
-    },
-    "test3": {"Stores":["Whole Foods", "Store2"]
-    }
+    "test1": ["Best Buy"],
+    "test2": ["Duane Reade"],
+    "test3": ["Whole Foods", "Store2"]
 }
