@@ -1,8 +1,5 @@
 {
-    "test1": {"Stores":["Walmart", "Target"]
-    },
-    "test2": {"Stores":"Rite Aid"
-    },
-    "test3": {"Stores":"Trader Joe's"
-    }
+    "test1": ["Walmart", "Target"],
+    "test2": ["Rite Aid"],
+    "test3": ["Trader Joe's"]
 }
