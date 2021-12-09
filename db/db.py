@@ -65,6 +65,25 @@ def get_inactive_subs(username):
     except FileNotFoundError:
         return NOT_FOUND
 
+def add_subs(username, subscription_name):
+    '''
+    Adding subscription to a user
+    '''
+    subs = get_active_subs()
+    if subs is None:
+        return NOT_FOUND
+    elif username in subs:
+        subs[username].append(subscription_name)
+
+def delete_subs(username, subscription_name):
+    '''
+    Deleting subscription from a user
+    '''
+    subs = get_active_subs()
+    if subs is None:
+        return NOT_FOUND
+    elif username in subs:
+        subs[username].remove(subscription_name)
 
 def write_users(users):
     pass
