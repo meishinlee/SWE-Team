@@ -123,7 +123,7 @@ class delete_subscriptions(Resource):
             raise (wz.NotAcceptable("Username already exists."))
         return f"{username}, {subscription_name} deleted."
 
-@api.route('/create_user/<username>')
+@api.route('/create_user/<username>/<email>')
 class CreateUser(Resource):
     """
     This class supports adding a user to the chat room.

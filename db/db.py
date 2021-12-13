@@ -122,7 +122,7 @@ def write_users(users):
     pass
 
 
-def add_user(username):
+def add_user(username, email):
     """
     Add a user to the user database.
     Until we are using a real DB, we have a potential
@@ -134,7 +134,7 @@ def add_user(username):
     elif username in users:
         return DUPLICATE
     else:
-        users[username] = {"Email": ""}
+        users[username] = {"Email": email}
         file = open(USERS_DB, "w")
         json.dump(users, file)
         file.close()
