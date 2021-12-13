@@ -16,7 +16,8 @@ cloud_mdb = "mongodb+srv"
 db_params = "retryWrites=true&w=majority"
 db_nm = "emailfilterDB"
 
-client = None
+client = pymongo.MongoClient("mongodb://meishinlee:emailfilter@email-filter-shard-00-00.6vns1.mongodb.net:27017,email-filter-shard-00-01.6vns1.mongodb.net:27017,email-filter-shard-00-02.6vns1.mongodb.net:27017/emailfilterDB?ssl=true&replicaSet=atlas-wpc2zu-shard-0&authSource=admin&retryWrites=true&w=majority")
+db = client.test
 
 
 def get_client():
