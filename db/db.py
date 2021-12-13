@@ -69,12 +69,23 @@ def add_subs(username, subscription_name):
     '''
     Adding subscription to a user
     '''
-    subs = get_active_subs()
-    if subs is None:
+    # subs = get_active_subs()
+    try: 
+        with open(ACTIVE_SUBSCRIPTION_DB) as file:
+            filedata = json.loads(file.read())
+        file.close()
+        filedata[username].append(subscription_name)
+        file = open(ACTIVE_SUBSCRIPTION_DB, "w")
+        json.dump(filedata, file)
+        file.close()
+    except FileNotFoundError:
         return NOT_FOUND
-    elif username in subs:
-        subs[username].append(subscription_name)
-        return subs
+
+    # if subs is None:
+    #     return NOT_FOUND
+    # elif username in subs:
+    #     subs[username].append(subscription_name)
+    #     return subs
 
 def delete_subs(username, subscription_name):
     '''
