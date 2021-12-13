@@ -35,3 +35,12 @@ class DBTestCase(TestCase):
         """
         inactive_subs = db.get_inactive_subs("test1")
         #self.assertIsInstance(inactive_subs, dict)
+
+    def test_add_subscription(self):
+        add_sub = db.add_subs("test1", "Discovery")
+    
+    def test_delete_subscription(self):
+        del_sub = db.delete_subs("test1", "Discovery")
+
+    def add_users(self):
+        add_user = db.add_user("test4", "kevin@nyu.edu")
