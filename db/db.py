@@ -48,7 +48,8 @@ def get_active_subs(username):
     try:
         with open(ACTIVE_SUBSCRIPTION_DB) as file:
             filedata = json.loads(file.read())
-            return filedata
+            file.close()
+            return filedata[username]
     except FileNotFoundError:
         return NOT_FOUND
 
@@ -60,8 +61,8 @@ def get_inactive_subs(username):
     try:
         with open(INACTIVE_SUBSCRIPTION_DB) as file:
             filedata = json.loads(file.read())
-            print(filedata)
-            return filedata
+            # print(filedata)
+            return filedata[username]
     except FileNotFoundError:
         return NOT_FOUND
 
@@ -91,12 +92,31 @@ def delete_subs(username, subscription_name):
     '''
     Deleting subscription from a user
     '''
-    subs = get_active_subs()
-    if subs is None:
+    try:
+        with open(ACTIVE_SUBSCRIPTION_DB) as file:
+            active_filedata = json.loads(file.read())
+        file.close()
+        active_filedata[username].remove(subscription_name)
+        file = open(ACTIVE_SUBSCRIPTION_DB, "w")
+        json.dump(active_filedata, file)
+        file.close()
+
+        with open(INACTIVE_SUBSCRIPTION_DB) as file:
+            inactive_filedata = json.loads(file.read())
+        file.close()
+        inactive_filedata[username].append(subscription_name)
+        file = open(INACTIVE_SUBSCRIPTION_DB, "w")
+        json.dump(inactive_filedata, file)
+        file.close()
+    except FileNotFoundError:
         return NOT_FOUND
-    elif username in subs:
-        subs[username].remove(subscription_name)
-        return subs
+
+    # subs = get_active_subs()
+    # if subs is None:
+    #     return NOT_FOUND
+    # elif username in subs:
+    #     subs[username].remove(subscription_name)
+    #     return subs
 
 def write_users(users):
     pass
@@ -114,6 +134,9 @@ def add_user(username):
     elif username in users:
         return DUPLICATE
     else:
-        users[username] = {"num_users": 0}
-        write_users(users)
+        users[username] = {"Email": ""}
+        file = open(USERS_DB, "w")
+        json.dump(users, file)
+        file.close()
+        # write_users(users)
         return OK
