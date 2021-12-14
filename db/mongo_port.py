@@ -29,7 +29,8 @@ print(f"{client=}")
 this_collect = client[DB_NAME][COLLECT_NAME]
 
 #insert_ret = client['testDB']['some_collect'].insert_one({'fid':'value'})
-insert_ret = client[DB_NAME][COLLECT_NAME].insert_one({'test5': {'Email': 'maple@nyu.edu'}})
+# insert_ret = client[DB_NAME][COLLECT_NAME].insert_one({'test5': {'Email': 'maple@nyu.edu'}})
+insert_ret = client[DB_NAME][COLLECT_NAME].insert_many([{'test6': {'Email': 'rachel@nyu.edu'}}, {'test7' : {'Email' : 'kent@nyu.edu'}}])
 print(f"{insert_ret=}")
 # insert_ret=<pymongo.results.InsertOneResult object at 0x7fc730fb3540>
 
@@ -47,7 +48,7 @@ doc={'_id': ObjectId('61b8cae3054db13b48f4c840'), 'test1': {'Email': 'msl608@nyu
 doc = client[DB_NAME][COLLECT_NAME].find_one({'test2': {'Email': 'ac7378@nyu.edu'}})
 print(f"find one = {doc=}")
 
-doc = client[DB_NAME][COLLECT_NAME].delete_one({'test3': {'Email': 'devin@nyu.edu'}})
+doc = client[DB_NAME][COLLECT_NAME].delete_one({'test7': {'Email': 'kent@nyu.edu'}})
 print(f"delete one = {doc=}")
 
 docs = client[DB_NAME][COLLECT_NAME].find()
