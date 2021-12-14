@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module get-pip</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>get-pip</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/aaron/Documents/Github/SWE-Team/get-pip.py">/Users/aaron/Documents/Github/SWE-Team/get-pip.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;Hi&nbsp;There!<br>
+#<br>
+#&nbsp;You&nbsp;may&nbsp;be&nbsp;wondering&nbsp;what&nbsp;this&nbsp;giant&nbsp;blob&nbsp;of&nbsp;binary&nbsp;data&nbsp;here&nbsp;is,&nbsp;you&nbsp;might<br>
+#&nbsp;even&nbsp;be&nbsp;worried&nbsp;that&nbsp;we're&nbsp;up&nbsp;to&nbsp;something&nbsp;nefarious&nbsp;(good&nbsp;for&nbsp;you&nbsp;for&nbsp;being<br>
+#&nbsp;paranoid!).&nbsp;This&nbsp;is&nbsp;a&nbsp;base85&nbsp;encoding&nbsp;of&nbsp;a&nbsp;zip&nbsp;file,&nbsp;this&nbsp;zip&nbsp;file&nbsp;contains<br>
+#&nbsp;an&nbsp;entire&nbsp;copy&nbsp;of&nbsp;pip&nbsp;(version&nbsp;21.3.1).<br>
+#<br>
+#&nbsp;Pip&nbsp;is&nbsp;a&nbsp;thing&nbsp;that&nbsp;installs&nbsp;packages,&nbsp;pip&nbsp;itself&nbsp;is&nbsp;a&nbsp;package&nbsp;that&nbsp;someone<br>
+#&nbsp;might&nbsp;want&nbsp;to&nbsp;install,&nbsp;especially&nbsp;if&nbsp;they're&nbsp;looking&nbsp;to&nbsp;run&nbsp;this&nbsp;get-pip.py<br>
+#&nbsp;script.&nbsp;Pip&nbsp;has&nbsp;a&nbsp;lot&nbsp;of&nbsp;code&nbsp;to&nbsp;deal&nbsp;with&nbsp;the&nbsp;security&nbsp;of&nbsp;installing<br>
+#&nbsp;packages,&nbsp;various&nbsp;edge&nbsp;cases&nbsp;on&nbsp;various&nbsp;platforms,&nbsp;and&nbsp;other&nbsp;such&nbsp;sort&nbsp;of<br>
+#&nbsp;"tribal&nbsp;knowledge"&nbsp;that&nbsp;has&nbsp;been&nbsp;encoded&nbsp;in&nbsp;its&nbsp;code&nbsp;base.&nbsp;Because&nbsp;of&nbsp;this<br>
+#&nbsp;we&nbsp;basically&nbsp;include&nbsp;an&nbsp;entire&nbsp;copy&nbsp;of&nbsp;pip&nbsp;inside&nbsp;this&nbsp;blob.&nbsp;We&nbsp;do&nbsp;this<br>
+#&nbsp;because&nbsp;the&nbsp;alternatives&nbsp;are&nbsp;attempt&nbsp;to&nbsp;implement&nbsp;a&nbsp;"minipip"&nbsp;that&nbsp;probably<br>
+#&nbsp;doesn't&nbsp;do&nbsp;things&nbsp;correctly&nbsp;and&nbsp;has&nbsp;weird&nbsp;edge&nbsp;cases,&nbsp;or&nbsp;compress&nbsp;pip&nbsp;itself<br>
+#&nbsp;down&nbsp;into&nbsp;a&nbsp;single&nbsp;file.<br>
+#<br>
+#&nbsp;If&nbsp;you're&nbsp;wondering&nbsp;how&nbsp;this&nbsp;is&nbsp;created,&nbsp;it&nbsp;is&nbsp;generated&nbsp;using<br>
+#&nbsp;`scripts/generate.py`&nbsp;in&nbsp;https://github.com/pypa/get-pip.</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="os.html">os</a><br>
+<a href="pkgutil.html">pkgutil</a><br>
+</td><td width="25%" valign=top><a href="shutil.html">shutil</a><br>
+<a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top><a href="tempfile.html">tempfile</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-bootstrap"><strong>bootstrap</strong></a>(tmpdir)</dt></dl>
+ <dl><dt><a name="-determine_pip_install_arguments"><strong>determine_pip_install_arguments</strong></a>()</dt></dl>
+ <dl><dt><a name="-main"><strong>main</strong></a>()</dt></dl>
+ <dl><dt><a name="-monkeypatch_for_cert"><strong>monkeypatch_for_cert</strong></a>(tmpdir)</dt><dd><tt>Patches&nbsp;`pip&nbsp;install`&nbsp;to&nbsp;provide&nbsp;default&nbsp;certificate&nbsp;with&nbsp;the&nbsp;lowest&nbsp;priority.<br>
+&nbsp;<br>
+This&nbsp;ensures&nbsp;that&nbsp;the&nbsp;bundled&nbsp;certificates&nbsp;are&nbsp;used&nbsp;unless&nbsp;the&nbsp;user&nbsp;specifies&nbsp;a<br>
+custom&nbsp;cert&nbsp;via&nbsp;any&nbsp;of&nbsp;pip's&nbsp;option&nbsp;passing&nbsp;mechanisms&nbsp;(config,&nbsp;env-var,&nbsp;CLI).<br>
+&nbsp;<br>
+A&nbsp;monkeypatch&nbsp;is&nbsp;the&nbsp;easiest&nbsp;way&nbsp;to&nbsp;achieve&nbsp;this,&nbsp;without&nbsp;messing&nbsp;too&nbsp;much&nbsp;with<br>
+the&nbsp;rest&nbsp;of&nbsp;pip's&nbsp;internals.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>DATA</strong> = b'\nP)h&gt;@6aWAK2mt$eR#TliG(h+O003nH000jF003}la4%n...7gX0WMyV)Ze?UHaCuNm1qJ{B005Z*nE_CM0\n06po82|tP\n'<br>
+<strong>min_version</strong> = (3, 6)<br>
+<strong>this_python</strong> = (3, 8)</td></tr></table>
+</body></html>
