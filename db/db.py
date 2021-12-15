@@ -43,11 +43,11 @@ def get_users():
 
 def get_active_subs():
     # return dbc.fetch_many(ACTIVE_SUBSCRIPTION_DB, USER_EMAIL, filters = {email})
-    return dbc.fetch_all(ACTIVE_SUBSCRIPTION_DB, USER_EMAIL)
+    return dbc.fetch_all(ACTIVE_SUBSCRIPTION_DB, "_id")
 
 def get_inactive_subs():
     # return dbc.fetch_many(INACTIVE_SUBSCRIPTION_DB, USER_EMAIL, filters = {email})
-    return dbc.fetch_all(INACTIVE_SUBSCRIPTION_DB, USER_EMAIL)
+    return dbc.fetch_all(INACTIVE_SUBSCRIPTION_DB, "_id")
 
 def user_exists(email):
     """
