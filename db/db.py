@@ -42,10 +42,12 @@ def get_users():
     return dbc.fetch_all(USERS, USER_EMAIL)
 
 def get_active_subs(email):
-    return dbc.fetch_many(ACTIVE_SUBSCRIPTION_DB, USER_EMAIL, filters = {email})
+    # return dbc.fetch_many(ACTIVE_SUBSCRIPTION_DB, USER_EMAIL, filters = {email})
+    return dbc.fetch_all(ACTIVE_SUBSCRIPTION_DB, USER_EMAIL)
 
 def get_inactive_subs(email):
-    return dbc.fetch_many(INACTIVE_SUBSCRIPTION_DB, USER_EMAIL, filters = {email})
+    # return dbc.fetch_many(INACTIVE_SUBSCRIPTION_DB, USER_EMAIL, filters = {email})
+    return dbc.fetch_many(INACTIVE_SUBSCRIPTION_DB, USER_EMAIL)
 
 def user_exists(email):
     """

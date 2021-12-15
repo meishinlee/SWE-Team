@@ -62,13 +62,13 @@ def del_one (collect_nm, filters = {}):
     '''
     return client[db_nm][collect_nm].delete_one(filters)
 
-def fetch_many(collect_nm, key_nm, filters = {}):
-    many_docs = {}
-    for doc in client[db_nm][collect_nm].find(filters):
-        print(doc)
-        many_docs[doc[key_nm]] = json.loads(bsutil.dumps(doc))
-    return many_docs
-    
+# def fetch_many(collect_nm, key_nm, filters = {}):
+#     many_docs = {}
+#     for doc in client[db_nm][collect_nm].find(filters):
+#         print(doc)
+#         many_docs[doc[key_nm]] = json.loads(bsutil.dumps(doc))
+#     return many_docs
+
 def fetch_all(collect_nm, key_nm):
     # all_users = {}
     # users = client[db_nm]["users"].find()

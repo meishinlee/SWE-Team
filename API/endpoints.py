@@ -46,12 +46,12 @@ class Endpoints(Resource):
 class get_active_subscriptions(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
-    def post(self, email):
+    def get(self):
         '''
         Returns active subscriptions for the user
         '''
         # active_subs = db.get_active_subs(username)["test2"]
-        active_subs = db.get_active_subs(email)
+        active_subs = db.get_active_subs()
         if active_subs is None:
             raise(wz.NotFound("Email not found in database"))
         else:
@@ -63,12 +63,12 @@ class get_active_subscriptions(Resource):
 
 @api.route('/get_inactive_subscriptions/<email>')
 class get_inactive_subscriptions(Resource):
-    def post(self, email):
+    def get(self):
         '''
         Returns deleted or inactive subscriptions for the user
         '''
         # inactive_subs = db.get_inactive_subs(username)["test2"]
-        inactive_subs = db.get_inactive_subs(email)
+        inactive_subs = db.get_inactive_subs()
         if inactive_subs is None:
             raise(wz.NotFound("User not found in database"))
         else:

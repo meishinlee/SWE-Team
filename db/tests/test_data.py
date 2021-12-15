@@ -26,14 +26,14 @@ class DBTestCase(TestCase):
         """
         Can we fetch active subscriptions?
         """
-        active_subs = db.get_active_subs("aaronchen@nyu.edu")
+        active_subs = db.get_active_subs()
         #self.assertIsInstance(active_subs, dict)
     
     def test_inactive_subscription(self):
         """
         Can we fetch inactive subscriptions?
         """
-        inactive_subs = db.get_inactive_subs("aaronchen@nyu.edu")
+        inactive_subs = db.get_inactive_subs()
         #self.assertIsInstance(inactive_subs, dict)
 
     def test_add_subscription(self):
