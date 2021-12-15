@@ -42,7 +42,7 @@ class Endpoints(Resource):
         return {"Available endpoints": endpoints}
 
 
-@api.route('/get_active_subscriptions/<email>')
+@api.route('/get_active_subscriptions')
 class get_active_subscriptions(Resource):
     @api.response(HTTPStatus.OK, 'Success')
     @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
@@ -61,7 +61,7 @@ class get_active_subscriptions(Resource):
         #                             "Target": {"Category": "Promotional"}}}
 
 
-@api.route('/get_inactive_subscriptions/<email>')
+@api.route('/get_inactive_subscriptions')
 class get_inactive_subscriptions(Resource):
     def get(self):
         '''
