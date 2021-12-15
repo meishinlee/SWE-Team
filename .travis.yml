@@ -11,6 +11,9 @@ env:
 script:
     - make tests
 
+services:
+    - mongodb
+    
 # deploy to heroku on push to master
 deploy:
     - provider: heroku
