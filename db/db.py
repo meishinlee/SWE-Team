@@ -41,10 +41,10 @@ def get_users():
     """
     return dbc.fetch_all(USERS, USER_EMAIL)
 
-def get_active_subscriptions():
+def get_active_subs():
     return dbc.fetch_all(ACTIVE_SUBSCRIPTION_DB, USER_EMAIL)
 
-def get_inactive_subscriptions():
+def get_inactive_subs():
     return dbc.fetch_all(INACTIVE_SUBSCRIPTION_DB, USER_EMAIL)
 
 def user_exists(email):
@@ -66,13 +66,13 @@ def add_user(name, email):
         dbc.insert_doc(USERS, {USER_NAME: name, USER_EMAIL: email})
         return OK
 
-def add_subscription(email, subscription_name):
+def add_subs(email, subscription_name):
     '''
     Returning oK if subscription successfully added. Else, return DUPLICATE.
     '''
     dbc.insert_doc(ACTIVE_SUBSCRIPTION_DB, {USER_EMAIL: email, USER_SUBSCRIPTION: subscription_name})
 
-def delete_subscription(email, subscription_name):
+def delete_subs(email, subscription_name):
     dbc.del_one(ACTIVE_SUBSCRIPTION_DB, {USER_EMAIL: email, USER_SUBSCRIPTION: subscription_name})
     dbc.insert_doc(INACTIVE_SUBSCRIPTION_DB, {USER_EMAIL: email, USER_SUBSCRIPTION: subscription_name})
 
@@ -83,12 +83,12 @@ print(add_user("Rachel", "rachel@nyu.edu"))
 print("\nList Users After Adding Rachel\n")
 print(get_users())
 print("\nListing All Active Subscriptions\n")
-print(get_active_subscriptions())
+print(get_active_subs())
 print("\nAdding A Subscription To Aaron\n")
-print(add_subscription("aaronchen@nyu.edu", "Whole Foods"))
+print(add_subs("aaronchen@nyu.edu", "Whole Foods"))
 print("\nListing All Active Subscriptions Again After Adding")
-print(get_active_subscriptions())
+print(get_active_subs())
 print("\nDeleting Aaron's newly added subscription\n")
-print(delete_subscription("aaronchen@nyu.edu", "Whole Foods"))
+print(delete_subs("aaronchen@nyu.edu", "Whole Foods"))
 print("\nListing the Inactive Subscriptions After We Deleted Aaron's Newly Added Subscription")
-print(get_inactive_subscriptions())
+print(get_inactive_subs())
