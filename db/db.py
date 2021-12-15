@@ -1,6 +1,6 @@
 import os
 
-import db.db_connect as dbc
+import db_connect as dbc
 
 if ('FILTER_HOME' not in os.environ):
     os.environ["FILTER_HOME"] = "/home/anubis/SWE-Team"
@@ -43,11 +43,11 @@ def get_users():
 
 def get_active_subs():
     # return dbc.fetch_many(ACTIVE_SUBSCRIPTION_DB, USER_EMAIL, filters = {email})
-    return dbc.fetch_many(ACTIVE_SUBSCRIPTION_DB, "_id")
+    return dbc.fetch_many(ACTIVE_SUBSCRIPTION_DB, USER_EMAIL)
 
 def get_inactive_subs():
     # return dbc.fetch_many(INACTIVE_SUBSCRIPTION_DB, USER_EMAIL, filters = {email})
-    return dbc.fetch_many(INACTIVE_SUBSCRIPTION_DB, "_id")
+    return dbc.fetch_many(INACTIVE_SUBSCRIPTION_DB, USER_EMAIL)
 
 def user_exists(email):
     """
@@ -89,8 +89,10 @@ def delete_subs(email, subscription_name):
 # print("\nAdding A Subscription To Aaron\n")
 # print(add_subs("aaronchen@nyu.edu", "Whole Foods"))
 # print("\nListing All Active Subscriptions Again After Adding")
-# print(get_active_subs("aaronchen@nyu.edu"))
+# print(get_active_subs())
+# print("\nListing the Inactive Subscriptions Before We Delete Aaron's Newly Added Subscription")
+# print(get_inactive_subs())
 # print("\nDeleting Aaron's newly added subscription\n")
 # print(delete_subs("aaronchen@nyu.edu", "Whole Foods"))
 # print("\nListing the Inactive Subscriptions After We Deleted Aaron's Newly Added Subscription")
-# print(get_inactive_subs(aaronchen@nyu.edu))
+# print(get_inactive_subs())
