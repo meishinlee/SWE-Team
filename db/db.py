@@ -1,10 +1,6 @@
-"""
-This file will manage interactions with our data store.
-At first, it will just contain stubs that return fake data.
-Gradually, we will fill in actual calls to our datastore.
-"""
-import json
 import os
+
+import db_connect as dbc
 
 if ('FILTER_HOME' not in os.environ):
     os.environ["FILTER_HOME"] = "/home/anubis/SWE-Team"
@@ -17,126 +13,82 @@ if TEST_MODE:
 else:
     DB_DIR = f"{FILTER_HOME}/db"
 
-USERS_DB = f"{DB_DIR}/users.json"
-ACTIVE_SUBSCRIPTION_DB = f"{DB_DIR}/active_subscriptions.json"
-INACTIVE_SUBSCRIPTION_DB = f"{DB_DIR}/inactive_subscriptions.json"
-print(USERS_DB)
-
 OK = 0
 NOT_FOUND = 1
 DUPLICATE = 2
 
+client = dbc.get_client()
+if client is None:
+    print("Failed to connect to MongoDB")
+    exit(1)
+print(client)
+
+# Collection Names
+USERS = "users"
+ACTIVE_SUBSCRIPTION_DB = "active_subscriptions"
+INACTIVE_SUBSCRIPTION_DB = "inactive_subscriptions"
+
+# Field names in our DB
+USER_NAME = "Name"
+USER_EMAIL = "Email"
+USER_SUBSCRIPTION = "Subscription"
+
+# Need to add subscription db's field names
 
 def get_users():
     """
-    A function to return a dictionary of all users.
+    A function to return a dictionary of all rooms.
     """
-    try:
-        with open(USERS_DB) as file:
-            # print(file.read())
-            return json.loads(file.read())
-    except FileNotFoundError:
-        print(USERS_DB)
-        print("Users db not found.")
-        return None
+    return dbc.fetch_all(USERS, USER_EMAIL)
 
+def get_active_subscriptions():
+    return dbc.fetch_all(ACTIVE_SUBSCRIPTION_DB, USER_EMAIL)
 
-def get_active_subs(username):
-    '''
-    Gets the active subscriptions of a user
-    '''
-    try:
-        with open(ACTIVE_SUBSCRIPTION_DB) as file:
-            filedata = json.loads(file.read())
-            file.close()
-            return filedata[username]
-    except FileNotFoundError:
-        return NOT_FOUND
+def get_inactive_subscriptions():
+    return dbc.fetch_all(INACTIVE_SUBSCRIPTION_DB, USER_EMAIL)
 
-
-def get_inactive_subs(username):
-    '''
-    Gets the inactive subscriptions of a user
-    '''
-    try:
-        with open(INACTIVE_SUBSCRIPTION_DB) as file:
-            filedata = json.loads(file.read())
-            # print(filedata)
-            return filedata[username]
-    except FileNotFoundError:
-        return NOT_FOUND
-
-def add_subs(username, subscription_name):
-    '''
-    Adding subscription to a user
-    '''
-    # subs = get_active_subs()
-    try: 
-        with open(ACTIVE_SUBSCRIPTION_DB) as file:
-            filedata = json.loads(file.read())
-        file.close()
-        filedata[username].append(subscription_name)
-        file = open(ACTIVE_SUBSCRIPTION_DB, "w")
-        json.dump(filedata, file)
-        file.close()
-    except FileNotFoundError:
-        return NOT_FOUND
-
-    # if subs is None:
-    #     return NOT_FOUND
-    # elif username in subs:
-    #     subs[username].append(subscription_name)
-    #     return subs
-
-def delete_subs(username, subscription_name):
-    '''
-    Deleting subscription from a user
-    '''
-    try:
-        with open(ACTIVE_SUBSCRIPTION_DB) as file:
-            active_filedata = json.loads(file.read())
-        file.close()
-        active_filedata[username].remove(subscription_name)
-        file = open(ACTIVE_SUBSCRIPTION_DB, "w")
-        json.dump(active_filedata, file)
-        file.close()
-
-        with open(INACTIVE_SUBSCRIPTION_DB) as file:
-            inactive_filedata = json.loads(file.read())
-        file.close()
-        inactive_filedata[username].append(subscription_name)
-        file = open(INACTIVE_SUBSCRIPTION_DB, "w")
-        json.dump(inactive_filedata, file)
-        file.close()
-    except FileNotFoundError:
-        return NOT_FOUND
-
-    # subs = get_active_subs()
-    # if subs is None:
-    #     return NOT_FOUND
-    # elif username in subs:
-    #     subs[username].remove(subscription_name)
-    #     return subs
-
-def write_users(users):
-    pass
-
-
-def add_user(username, email):
+def user_exists(email):
     """
-    Add a user to the user database.
-    Until we are using a real DB, we have a potential
-    race condition here.
+    See if a user with username is in the db.
+    Returns True of False.
     """
-    users = get_users()
-    if users is None:
-        return NOT_FOUND
-    elif username in users:
+    rec = dbc.fetch_one(USERS, filters={USER_EMAIL: email})
+    print(f"{rec=}")
+    return rec is not None
+
+def add_user(name, email):
+    '''
+    Returning OK if user successfully added. Else, return DUPLICATE. 
+    '''
+    if user_exists(email):
         return DUPLICATE
     else:
-        users[username] = {"Email": email}
-        file = open(USERS_DB, "w")
-        json.dump(users, file)
-        file.close()
-        # write_users(users)
+        dbc.insert_doc(USERS, {USER_NAME: name, USER_EMAIL: email})
         return OK
+
+def add_subscription(email, subscription_name):
+    '''
+    Returning oK if subscription successfully added. Else, return DUPLICATE.
+    '''
+    dbc.insert_doc(ACTIVE_SUBSCRIPTION_DB, {USER_EMAIL: email, USER_SUBSCRIPTION: subscription_name})
+
+def delete_subscription(email, subscription_name):
+    dbc.del_one(ACTIVE_SUBSCRIPTION_DB, {USER_EMAIL: email, USER_SUBSCRIPTION: subscription_name})
+    dbc.insert_doc(INACTIVE_SUBSCRIPTION_DB, {USER_EMAIL: email, USER_SUBSCRIPTION: subscription_name})
+
+print("Listing Users Now!\n")
+print(get_users())
+print("\nAdding A User Now!\n")
+print(add_user("Rachel", "rachel@nyu.edu"))
+print("\nList Users After Adding Rachel\n")
+print(get_users())
+print("\nListing All Active Subscriptions\n")
+print(get_active_subscriptions())
+print("\nAdding A Subscription To Aaron\n")
+print(add_subscription("aaronchen@nyu.edu", "Whole Foods"))
+print("\nListing All Active Subscriptions Again After Adding")
+print(get_active_subscriptions())
+print("\nDeleting Aaron's newly added subscription\n")
+print(delete_subscription("aaronchen@nyu.edu", "Whole Foods"))
+print("\nListing the Inactive Subscriptions After We Deleted Aaron's Newly Added Subscription")
+print(get_inactive_subscriptions())

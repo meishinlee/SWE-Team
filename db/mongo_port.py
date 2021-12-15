@@ -13,45 +13,56 @@ It assumes that cause that's what we've been using!
 """
 import sys
 import json
-import pymongo as pm 
 
-# DB_NAME = "testDB"
-# COLLECT_NAME = "some_collect"
+import db_connect as dbc
 
-DB_NAME = 'emailfilterDB'
-COLLECT_NAME = 'users'
 
-client = pm.MongoClient()
-print(f"{client=}")
-# returns something like client=MongoClient(host=['localhost:27017'], document_class=dict, tz_aware=False, connect=True)
+def read_collection(json_version):
+    """
+    A function to read a colleciton off of disk.
+    """
+    try:
+        with open(json_version) as file:
+            return json.loads(file.read())
+    except FileNotFoundError:
+        print(f"{json_version} not found.")
+        return None
 
-# You can use this so you avoid typing client[DB_NAME][COLLECT_NAME] over and over again.
-this_collect = client[DB_NAME][COLLECT_NAME]
 
-#insert_ret = client['testDB']['some_collect'].insert_one({'fid':'value'})
-# insert_ret = client[DB_NAME][COLLECT_NAME].insert_one({'test5': {'Email': 'maple@nyu.edu'}})
-insert_ret = client[DB_NAME][COLLECT_NAME].insert_many([{'test6': {'Email': 'rachel@nyu.edu'}}, {'test7' : {'Email' : 'kent@nyu.edu'}}])
-print(f"{insert_ret=}")
-# insert_ret=<pymongo.results.InsertOneResult object at 0x7fc730fb3540>
+def new_ent_from_json(key_name, ent_name, ent_data):
+    dict1 = {key_name: ent_name}
+    return {**dict1, **ent_data}
 
-# docs = client['testDB']['some_collect'].find()
-docs = client[DB_NAME][COLLECT_NAME].find()
-print(f"{docs=}")
-for doc in docs:
-    print(f"{doc=}")
-'''
-docs=<pymongo.cursor.Cursor object at 0x7fc730fb53a0>
-doc={'_id': ObjectId('61b8ca16bbb11f07d99dc28d'), 'fid': 'value'}
-doc={'_id': ObjectId('61b8cae3054db13b48f4c840'), 'test1': {'Email': 'msl608@nyu.edu'}}
-'''
 
-doc = client[DB_NAME][COLLECT_NAME].find_one({'test2': {'Email': 'ac7378@nyu.edu'}})
-print(f"find one = {doc=}")
+client = dbc.get_client()
+print(client)
 
-doc = client[DB_NAME][COLLECT_NAME].delete_one({'test7': {'Email': 'kent@nyu.edu'}})
-print(f"delete one = {doc=}")
+if len(sys.argv) < 4:
+    # the key in the JSON file will become an ordinary field
+    # in the Mongo DB, but we need to give it a name!
+    print(f"Usage: {sys.argv[0]} db_name collection_name key_name")
+    exit(1)
 
-docs = client[DB_NAME][COLLECT_NAME].find()
-print(f"{docs=}")
-for doc in docs:
-    print(f"{doc=}")
+db = client[sys.argv[1]]
+print(db)
+
+collect_nm = sys.argv[2]
+print(f"{collect_nm=}")
+collection = db[collect_nm]
+
+json_file = collect_nm + ".json"
+print(f"{json_file=}")
+
+key_name = sys.argv[3]
+print(f"{key_name=}")
+
+collect = read_collection(json_file)
+
+for entity_nm in collect:
+    new_entity = new_ent_from_json(key_name,
+                                   entity_nm,
+                                   collect[entity_nm])
+    print(f"{new_entity=}")
+    collection.insert_one(new_entity)
+
+print(collection)
