@@ -47,7 +47,7 @@ def get_active_subs():
 
 def get_inactive_subs():
     # return dbc.fetch_many(INACTIVE_SUBSCRIPTION_DB, USER_EMAIL, filters = {email})
-    return dbc.fetch_many(INACTIVE_SUBSCRIPTION_DB, USER_EMAIL)
+    return dbc.fetch_all(INACTIVE_SUBSCRIPTION_DB, USER_EMAIL)
 
 def user_exists(email):
     """

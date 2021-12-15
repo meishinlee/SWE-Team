@@ -29,4 +29,5 @@ Note to Dennis and Gordon: While we wrote the technicals, we spoke with Callahan
 4. DELETE: A user can delete a subscription through the `/delete_subscription` endpoint 
 5. READ: A user can view all of their current subscriptions and statuses through the `/get_active_subscriptions` endpoint 
 6. READ: A user can view all of their unsubscribed subscriptions and statuses through the `/inactive_user_subscriptions` endpoint
-7. READ: If the project allows, a user can view their subscription habits (eg. summary statistics and categorize by subscription topic) through `/get_subsciption_statistics` 
+7. READ: If the project allows, a user can view their subscription habits (eg. summary statistics and categorize by subscription topic) through `/get_subsciption_statistics`  (NOT GOING TO IMPLEMENT THIS)
+8. READ: We can see a list of all users through the `/list_users` endpoint.
