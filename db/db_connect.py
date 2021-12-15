@@ -66,8 +66,11 @@ def fetch_many(collect_nm, key_nm):
     many_docs = {}
     for doc in client[db_nm][collect_nm].find():
         # print(doc)
-        many_docs[doc[key_nm]] = []
-        many_docs[doc[key_nm]].append(doc['Subscription']) 
+        if doc[key_nm] not in many_docs:
+            many_docs[doc[key_nm]] = []
+            many_docs[doc[key_nm]].append(doc['Subscription'])
+        else:
+            many_docs[doc[key_nm]].append(doc['Subscription'])
     return many_docs
 
 def fetch_all(collect_nm, key_nm):
