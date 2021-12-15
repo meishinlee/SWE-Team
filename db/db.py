@@ -1,6 +1,6 @@
 import os
 
-import db_connect as dbc
+import db.db_connect as dbc
 
 if ('FILTER_HOME' not in os.environ):
     os.environ["FILTER_HOME"] = "/home/anubis/SWE-Team"
